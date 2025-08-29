@@ -30,8 +30,7 @@ FROM DuplicateRecords
  --where row_num > 1
 ORDER BY JourneyID
 
-   
-SELECT 
+   SELECT 
     JourneyID, 
     CustomerID,  
     ProductID,  
@@ -62,66 +61,66 @@ WHERE
 --------------------------------------------------------------------------------------------------------
 -- (STAGE DISTRIBUTION) To count how many records exist per Stage in your CustomerJourney table:
 
---SELECT 
---    Stage,
---    COUNT(*) AS StageCount
---FROM dbo.customer_journey
---GROUP BY Stage
---ORDER BY StageCount DESC;
-
+SELECT 
+    Stage,
+    COUNT(*) AS StageCount
+FROM dbo.customer_journey
+GROUP BY Stage
+ORDER BY StageCount DESC;
 
 ----------------------------------------------------------------------------------------------------------
 -- (STAGE DISTRIBUTION) See funnel drop-off rates between stages.
 -- A funnel drop-off means checking how many customers made it to each stage and then calculating the percentage that progressed further.
 
---WITH StageCounts AS (
---    SELECT 
---        UPPER(Stage) AS Stage,
---        COUNT(CustomerID) AS Customers
---    FROM dbo.customer_journey
---    GROUP BY UPPER(Stage)
---)
---SELECT 
---    Stage,
---    Customers,
---    LAG(Customers) OVER (ORDER BY 
---        CASE Stage 
---            WHEN 'Homepage' THEN 1
---            WHEN 'ProductPage' THEN 2
---            WHEN 'Checkout' THEN 3
---            ELSE 4 END
---    ) AS PreviousStageCustomers,
---    CASE 
---        WHEN LAG(Customers) OVER (ORDER BY 
---                CASE Stage 
---                    WHEN 'Homepage' THEN 1
---                    WHEN 'ProductPage' THEN 2
---                    WHEN 'Checkout' THEN 3
---                    ELSE 4 END
---            ) IS NULL THEN NULL
---        ELSE 
---            ROUND(
---                100.0 * (Customers * 1.0 / 
---                LAG(Customers) OVER (ORDER BY 
---                    CASE Stage 
---                        WHEN 'Homepage' THEN 1
---                        WHEN 'ProductPage' THEN 2
---                        WHEN 'Checkout' THEN 3
---                        ELSE 4 END)
---                ), 2
---            )
---    END AS RetentionPercent
---FROM StageCounts
---ORDER BY 
---    CASE Stage 
---        WHEN 'Homepage' THEN 1
---        WHEN 'ProductPage' THEN 2
---        WHEN 'Checkout' THEN 3
---        ELSE 4 END;
+WITH StageCounts AS (
+    SELECT 
+        UPPER(Stage) AS Stage,
+        COUNT(CustomerID) AS Customers
+    FROM dbo.customer_journey
+    GROUP BY UPPER(Stage)
+)
+SELECT 
+    Stage,
+    Customers,
+    LAG(Customers) OVER (ORDER BY 
+        CASE Stage 
+            WHEN 'Homepage' THEN 1
+            WHEN 'ProductPage' THEN 2
+            WHEN 'Checkout' THEN 3
+            ELSE 4 END
+    ) AS PreviousStageCustomers,
+    CASE 
+        WHEN LAG(Customers) OVER (ORDER BY 
+                CASE Stage 
+                    WHEN 'Homepage' THEN 1
+                    WHEN 'ProductPage' THEN 2
+                    WHEN 'Checkout' THEN 3
+                    ELSE 4 END
+            ) IS NULL THEN NULL
+        ELSE 
+            ROUND(
+                100.0 * (Customers * 1.0 / 
+                LAG(Customers) OVER (ORDER BY 
+                    CASE Stage 
+                        WHEN 'Homepage' THEN 1
+                        WHEN 'ProductPage' THEN 2
+                        WHEN 'Checkout' THEN 3
+                        ELSE 4 END)
+                ), 2
+            )
+    END AS RetentionPercent
+FROM StageCounts
+ORDER BY 
+    CASE Stage 
+        WHEN 'Homepage' THEN 1
+        WHEN 'ProductPage' THEN 2
+        WHEN 'Checkout' THEN 3
+        ELSE 4 END;
 
 -------------------------------------------------------------------------------------------------------
 
 -- (ACTION FREQUENCY) Most common actions (View, Click, Purchase).
+-- This calculates the average time customers spend on each action (View, Click, Purchase, etc.).
 
 SELECT 
     Action, 
@@ -133,6 +132,7 @@ ORDER BY ActionCount DESC;
 ------------------------------------------------------------------------------------------------------
 
 -- (VISIT TIMELINES) Daily/weekly/monthly number of visits.
+-- These queries give daily, weekly, and monthly visit counts.
 
 
 -- Daily visits
@@ -164,6 +164,7 @@ ORDER BY YearNum, MonthNum;
 ------------------------------------------------------------------------------------------------------
 
 -- Calculate days between first visit and purchase per customer/product
+-- This query computes the time-to-purchase in days for each customer-product pair by comparing the first visit date and the first purchase date.
 
 WITH FirstVisit AS (
     SELECT 
@@ -179,7 +180,7 @@ FirstPurchase AS (
         ProductID,
         MIN(VisitDate) AS PurchaseDate
     FROM dbo.customer_journey
-    WHERE Action = 'Purchase'
+    WHERE Action = 'Purchase' 
     GROUP BY CustomerID, ProductID
 )
 SELECT 
@@ -193,3 +194,115 @@ JOIN FirstPurchase fp
     ON fv.CustomerID = fp.CustomerID
    AND fv.ProductID = fp.ProductID
 ORDER BY DaysToPurchase;
+
+------------------------------------------------------------------------------------------------------
+
+-- (Customer engagement)  Find average duration spent by each customer name
+
+SELECT 
+    j.CustomerID,
+    c.CustomerName,
+    ROUND(AVG(j.Duration), 2) AS AvgDuration
+FROM dbo.customer_journey as j
+JOIN dbo.customers c
+    ON j.CustomerID = c.CustomerID
+WHERE j.Duration IS NOT NULL
+GROUP BY j.CustomerID, c.CustomerName
+ORDER BY AvgDuration DESC;
+
+---------------------------------------------------------------------------------------------------------
+
+-- (Customer engagement) Find repeat visits per customer
+
+SELECT 
+    CustomerID,
+    COUNT(*) AS TotalVisits
+FROM dbo.customer_journey
+GROUP BY CustomerID
+HAVING COUNT(*) > 1
+ORDER BY TotalVisits DESC;
+
+
+-- Join with the Customer table if you want customer names:
+
+SELECT 
+    j.CustomerID,
+    c.CustomerName,
+    COUNT(*) AS TotalVisits
+FROM dbo.customer_journey as j
+JOIN dbo.customers as c
+    ON j.CustomerID = c.CustomerID
+GROUP BY j.CustomerID, c.CustomerName
+HAVING COUNT(*) > 1
+ORDER BY TotalVisits DESC;
+
+----------------------------------------------------------------------------------------------------
+-- (Rating Distribution) To create a histogram of ratings (count of each rating from 1 to 5) from Customer Reviews table:
+
+EXEC sp_help 'dbo.customer_reviews';
+
+SELECT 
+    Rating,
+    COUNT(*) AS RatingCount,
+    CONCAT(FORMAT(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 'N2'), '%') AS RatingPercent
+FROM dbo.customer_reviews
+GROUP BY Rating
+ORDER BY Rating;
+
+-------------------------------------------------------------------------------------------------------
+
+-- Trends in rating over time (improving or declining).
+
+SELECT 
+    FORMAT(ReviewDate, 'MMMM yyyy') AS MonthYear,
+    ROUND(AVG(CAST(Rating AS FLOAT)), 2) AS AvgRating,
+    COUNT(*) AS ReviewCount
+FROM dbo.customer_reviews
+GROUP BY FORMAT(ReviewDate, 'MMMM yyyy')
+ORDER BY MIN(ReviewDate);
+
+--------------------------------------------------------------------------------------------------------
+
+-- Compare time spent in journey (duration) vs final rating.
+
+SELECT 
+    j.CustomerID,
+    c.CustomerName,
+    j.ProductID,
+    SUM(j.Duration) AS TotalDuration,
+    r.Rating AS FinalRating
+FROM dbo.customer_journey j
+JOIN dbo.customers c
+    ON j.CustomerID = c.CustomerID
+JOIN dbo.customer_reviews r
+    ON j.CustomerID = r.CustomerID
+   AND j.ProductID = r.ProductID
+WHERE j.Duration IS NOT NULL
+GROUP BY 
+    j.CustomerID,
+    c.CustomerName,
+    j.ProductID,
+    r.Rating
+ORDER BY TotalDuration DESC;
+
+
+--------------------------------------------------------------------------------------------------------
+-- (Product Level Insights) - Funnel conversion rate (how many reached purchase).
+
+WITH TotalCustomers AS (
+    SELECT COUNT(CustomerID) AS Total
+    FROM dbo.customer_journey
+),
+PurchasedCustomers AS (
+    SELECT COUNT(CustomerID) AS Purchased
+    FROM dbo.customer_journey
+    WHERE UPPER(Stage) = 'Checkout'
+)
+SELECT 
+    p.Purchased,
+    t.Total,
+    CONCAT(FORMAT(100.0 * p.Purchased / t.Total, 'N2'), '%') AS ConversionRatePercent
+FROM PurchasedCustomers p
+CROSS JOIN TotalCustomers t;
+
+------------------------------------------------------------------------------------------------------
