@@ -1,4 +1,44 @@
 use PortfolioProject_MarketingAnalytics;
+
+-- SQL statement to join dim_customers with dim_geography to enrich customer data with geographic information
+
+SELECT 
+    c.CustomerID,  
+    c.CustomerName,  
+    c.Email,  
+    c.Gender,  
+    c.Age,  
+    g.Country, 
+    g.City  -- 
+FROM 
+    dbo.customers as c  
+LEFT JOIN
+-- RIGHT JOIN
+-- INNER JOIN
+-- FULL OUTER JOIN
+    dbo.geography g  
+ON 
+    c.GeographyID = g.GeographyID;  
+
+----------------------------------------------------------------------------------------------------------
+-- SQL Query to categorize products based on their price
+
+SELECT 
+    ProductID,  
+    ProductName,  
+    Price,  
+	-- Category, 
+
+    CASE 
+        WHEN Price < 50 THEN 'Low'  
+        WHEN Price BETWEEN 50 AND 200 THEN 'Medium'  
+        ELSE 'High'  
+    END AS PriceCategory  
+
+FROM 
+    dbo.products;  
+
+
 ---------------------------------------------------------------------------------------------------------
 -- Query to clean and normalize the engagement_data table
 
