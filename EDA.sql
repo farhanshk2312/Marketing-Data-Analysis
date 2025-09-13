@@ -79,7 +79,7 @@ WITH DuplicateRecords AS (
            ) As row_num
 
     From 
-      dbo.customer_journey
+       dbo.customer_journey
 
 )
 
@@ -180,7 +180,6 @@ ORDER BY
 -------------------------------------------------------------------------------------------------------
 
 -- (ACTION FREQUENCY) Most common actions (View, Click, Purchase).
--- This calculates the average time customers spend on each action (View, Click, Purchase, etc.).
 
 SELECT 
     Action, 
