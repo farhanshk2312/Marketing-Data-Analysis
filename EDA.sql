@@ -1,4 +1,4 @@
-use PortfolioProject_MarketingAnalytics;
+﻿use PortfolioProject_MarketingAnalytics;
 
 -- SQL statement to join dim_customers with dim_geography to enrich customer data with geographic information
 
@@ -23,41 +23,28 @@ ON
 ----------------------------------------------------------------------------------------------------------
 -- SQL Query to categorize products based on their price
 
-SELECT 
-    ProductID,  
-    ProductName,  
-    Price,  
-	-- Category, 
-
+ALTER TABLE dbo.products  
+ADD PriceCategory AS 
     CASE 
         WHEN Price < 50 THEN 'Low'  
         WHEN Price BETWEEN 50 AND 200 THEN 'Medium'  
         ELSE 'High'  
-    END AS PriceCategory  
-
-FROM 
-    dbo.products;  
-
+    END;
 
 ---------------------------------------------------------------------------------------------------------
 -- Query to clean and normalize the engagement_data table
 
-SELECT 
-    EngagementID,  
-    ContentID,  
-	CampaignID,  
-    ProductID,  
+ALTER TABLE dbo.engagement_data
 
-    UPPER(REPLACE(ContentType, 'Socialmedia', 'Social Media')) AS ContentType,  
-    LEFT(ViewsClicksCombined, CHARINDEX('-', ViewsClicksCombined) - 1) AS Views,  
-    RIGHT(ViewsClicksCombined, LEN(ViewsClicksCombined) - CHARINDEX('-', ViewsClicksCombined)) AS Clicks,  
-    Likes,  
-   
-    FORMAT(CONVERT(DATE, EngagementDate), 'dd.MM.yyyy') AS EngagementDate 
-FROM 
-    dbo.engagement_data  
-WHERE 
-    ContentType != 'Newsletter';  
+ADD 
+    ContentType_Clean AS UPPER(REPLACE(ContentType, 'Socialmedia', 'Social Media')),
+
+    Views AS LEFT(ViewsClicksCombined, CHARINDEX('-', ViewsClicksCombined) - 1),
+
+    Clicks AS RIGHT(ViewsClicksCombined, LEN(ViewsClicksCombined) - CHARINDEX('-', ViewsClicksCombined)),
+
+    EngagementDate_Formatted AS FORMAT(CONVERT(DATE, EngagementDate), 'dd.MM.yyyy');
+
 ---------------------------------------------------------------------------------------------------------
 
 -- Common Table Expression (CTE) to identify and tag duplicate records
@@ -83,7 +70,27 @@ WITH DuplicateRecords AS (
 
 )
 
--- Select all records from the CTE where row_num > 1, which indicates duplicate entries
+-- Select all records from the CTE where row_num > 1, which indicates duplicate entries:
+
+/* Explanation:
+
+The ROW_NUMBER() function assigns a unique sequence number to rows within each group defined by the PARTITION BY clause.
+
+Groups here are: (CustomerID, ProductID, VisitDate, Stage, Action).
+
+That means: if two rows have the same customer, product, visit date, stage, and action → they are considered duplicates.
+
+Within each group, rows are ordered by JourneyID.
+
+The first row gets row_num = 1 (kept as the "original").
+
+Additional rows get row_num = 2, 3, ... (duplicates).
+
+The outer SELECT retrieves all rows from the CTE.
+
+If you uncomment WHERE row_num > 1, you get only duplicates.
+
+Purpose: Identify which rows are duplicates of each other. */
 
 SELECT *
 FROM DuplicateRecords
@@ -118,13 +125,68 @@ FROM
 WHERE 
     row_num = 1; 
 
+/* Explanation:
+
+Inner subquery does two main things:
+
+UPPER(Stage) → standardizes text casing (e.g., "purchase" vs "Purchase").
+
+AVG(Duration) OVER (PARTITION BY VisitDate) → computes the average duration for all journeys on the same date.
+
+ROW_NUMBER() again removes duplicates, keeping only the first JourneyID in each group.
+
+Outer query does:
+
+Uses COALESCE(Duration, avg_duration) → if Duration is NULL, fill it with the average duration for that day.
+
+WHERE row_num = 1 → keeps only the first non-duplicate row for each group.
+
+👉 Purpose:
+
+Deduplicate rows.
+
+Standardize the Stage column.
+
+Fill missing durations with daily averages.
+
+Produce a cleaned dataset.*/
+
+-- Create a new cleaned table:
+
+SELECT 
+    JourneyID, 
+    CustomerID,  
+    ProductID,  
+    VisitDate,
+    Stage,  
+    Action, 
+    COALESCE(Duration, avg_duration) AS Duration  
+INTO dbo.customer_journey_cleaned   -- creates a new table
+FROM (
+        SELECT 
+            JourneyID,  
+            CustomerID,  
+            ProductID,  
+            VisitDate,  
+            UPPER(Stage) AS Stage,  
+            Action,  
+            Duration,  
+            AVG(Duration) OVER (PARTITION BY VisitDate) AS avg_duration,  
+            ROW_NUMBER() OVER (
+                PARTITION BY CustomerID, ProductID, VisitDate, UPPER(Stage), Action  
+                ORDER BY JourneyID  
+            ) AS row_num  
+        FROM dbo.customer_journey  
+    ) AS subquery  
+WHERE row_num = 1;
+
 --------------------------------------------------------------------------------------------------------
 -- (STAGE DISTRIBUTION) To count how many records exist per Stage in your CustomerJourney table:
 
 SELECT 
     Stage,
     COUNT(*) AS StageCount
-FROM dbo.customer_journey
+FROM dbo.customer_journey_cleaned
 GROUP BY Stage
 ORDER BY StageCount DESC;
 
