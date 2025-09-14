@@ -64,16 +64,6 @@ The goal of this project is to transform raw marketing data into actionable insi
 
       Aggregations (COUNT, AVG, SUM, GROUP BY).
 
-#Project Structure
-
-📁 Marketing-Analytics-SQL
-
-├── etl_cleaning.sql        # Queries for cleaning & normalization
-
-├── analysis_queries.sql     # Queries for funnel, journey, and review analysis
-
-├── README.md                # Project documentation
-
 
 # Analytical queries & methods (what we measured)
 
