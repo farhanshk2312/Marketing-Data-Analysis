@@ -1,0 +1,1732 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20252.25.0514.2217                               -->
+<workbook original-version='18.1' source-build='2025.2.0 (20252.25.0514.2217)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <AnimationOnByDefault />
+    <MarkAnimation />
+    <ObjectModelEncapsulateLegacy />
+    <ObjectModelExtractV2 />
+    <_.fcp.ObjectModelSharedDimensions.true...ObjectModelSharedDimensions />
+    <ObjectModelTableType />
+    <SchemaViewerObjectModel />
+    <SheetIdentifierTracking />
+    <_.fcp.VConnDownstreamExtractsWithWarnings.true...VConnDownstreamExtractsWithWarnings />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='customers+' inline='true' name='federated.0zwbe0501eun6c12q8gmx05ox71n' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='customers' name='textscan.1fzifme0ekuipa1g3mky317gmj7a'>
+            <connection class='textscan' directory='D:/Projects/Profile/DataAnalystPortfolioProject_PBI_SQL_Python_MarketingAnalytics-main/Marketing-Data-Analysis' filename='customers.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation type='collection'>
+          <relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='customers.csv' table='[customers#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='CustomerID' ordinal='0' />
+              <column datatype='string' name='CustomerName' ordinal='1' />
+              <column datatype='string' name='Email' ordinal='2' />
+              <column datatype='string' name='Gender' ordinal='3' />
+              <column datatype='integer' name='Age' ordinal='4' />
+              <column datatype='integer' name='GeographyID' ordinal='5' />
+            </columns>
+          </relation>
+          <relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='customer_journey_cleaned.csv' table='[customer_journey_cleaned#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='JourneyID' ordinal='0' />
+              <column datatype='integer' name='CustomerID' ordinal='1' />
+              <column datatype='integer' name='ProductID' ordinal='2' />
+              <column datatype='date' name='VisitDate' ordinal='3' />
+              <column datatype='string' name='Stage' ordinal='4' />
+              <column datatype='string' name='Action' ordinal='5' />
+              <column datatype='real' name='Duration' ordinal='6' />
+            </columns>
+          </relation>
+          <relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='customer_reviews_with_sentiment.csv' table='[customer_reviews_with_sentiment#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='CustomerID' ordinal='0' />
+              <column datatype='integer' name='ProductID' ordinal='1' />
+              <column datatype='date' name='ReviewDate' ordinal='2' />
+              <column datatype='integer' name='Rating' ordinal='3' />
+              <column datatype='string' name='ReviewText' ordinal='4' />
+              <column datatype='string' name='clean_text' ordinal='5' />
+              <column datatype='string' name='Rating_Label' ordinal='6' />
+              <column datatype='string' name='Sentiment_Pred' ordinal='7' />
+              <column datatype='real' name='Sentiment_Score' ordinal='8' />
+            </columns>
+          </relation>
+          <relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='geography.csv' table='[geography#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='GeographyID' ordinal='0' />
+              <column datatype='string' name='Country' ordinal='1' />
+              <column datatype='string' name='City' ordinal='2' />
+            </columns>
+          </relation>
+          <_.fcp.ObjectModelSharedDimensions.true...relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='products.csv' table='[products#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='ProductID' ordinal='0' />
+              <column datatype='string' name='ProductName' ordinal='1' />
+              <column datatype='string' name='Category' ordinal='2' />
+              <column datatype='real' name='Price' ordinal='3' />
+              <column datatype='string' name='PriceCategory' ordinal='4' />
+            </columns>
+          </_.fcp.ObjectModelSharedDimensions.true...relation>
+          <_.fcp.ObjectModelSharedDimensions.true...relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='engagement_data.csv' table='[engagement_data#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='EngagementID' ordinal='0' />
+              <column datatype='integer' name='ContentID' ordinal='1' />
+              <column datatype='string' name='ContentType' ordinal='2' />
+              <column datatype='integer' name='Likes' ordinal='3' />
+              <column datatype='date' name='EngagementDate' ordinal='4' />
+              <column datatype='integer' name='CampaignID' ordinal='5' />
+              <column datatype='integer' name='ProductID' ordinal='6' />
+              <column datatype='string' name='ViewsClicksCombined' ordinal='7' />
+              <column datatype='string' name='ContentType_Clean' ordinal='8' />
+              <column datatype='integer' name='Views' ordinal='9' />
+              <column datatype='integer' name='Clicks' ordinal='10' />
+              <column datatype='date' name='EngagementDate_Formatted' ordinal='11' />
+            </columns>
+          </_.fcp.ObjectModelSharedDimensions.true...relation>
+        </relation>
+        <cols>
+          <map key='[Action]' value='[customer_journey_cleaned.csv].[Action]' />
+          <map key='[Age]' value='[customers.csv].[Age]' />
+          <map key='[CampaignID]' value='[engagement_data.csv].[CampaignID]' />
+          <map key='[Category]' value='[products.csv].[Category]' />
+          <map key='[City]' value='[geography.csv].[City]' />
+          <map key='[Clicks]' value='[engagement_data.csv].[Clicks]' />
+          <map key='[ContentID]' value='[engagement_data.csv].[ContentID]' />
+          <map key='[ContentType]' value='[engagement_data.csv].[ContentType]' />
+          <map key='[ContentType_Clean]' value='[engagement_data.csv].[ContentType_Clean]' />
+          <map key='[Country]' value='[geography.csv].[Country]' />
+          <map key='[CustomerID (customer_journey_cleaned.csv)]' value='[customer_journey_cleaned.csv].[CustomerID]' />
+          <map key='[CustomerID (customer_reviews_with_sentiment.csv)]' value='[customer_reviews_with_sentiment.csv].[CustomerID]' />
+          <map key='[CustomerID]' value='[customers.csv].[CustomerID]' />
+          <map key='[CustomerName]' value='[customers.csv].[CustomerName]' />
+          <map key='[Duration]' value='[customer_journey_cleaned.csv].[Duration]' />
+          <map key='[Email]' value='[customers.csv].[Email]' />
+          <map key='[EngagementDate]' value='[engagement_data.csv].[EngagementDate]' />
+          <map key='[EngagementDate_Formatted]' value='[engagement_data.csv].[EngagementDate_Formatted]' />
+          <map key='[EngagementID]' value='[engagement_data.csv].[EngagementID]' />
+          <map key='[Gender]' value='[customers.csv].[Gender]' />
+          <map key='[GeographyID (geography.csv)]' value='[geography.csv].[GeographyID]' />
+          <map key='[GeographyID]' value='[customers.csv].[GeographyID]' />
+          <map key='[JourneyID]' value='[customer_journey_cleaned.csv].[JourneyID]' />
+          <map key='[Likes]' value='[engagement_data.csv].[Likes]' />
+          <map key='[PriceCategory]' value='[products.csv].[PriceCategory]' />
+          <map key='[Price]' value='[products.csv].[Price]' />
+          <map key='[ProductID (customer_journey_cleaned.csv)]' value='[customer_journey_cleaned.csv].[ProductID]' />
+          <map key='[ProductID (engagement_data.csv)]' value='[engagement_data.csv].[ProductID]' />
+          <map key='[ProductID (products.csv)]' value='[products.csv].[ProductID]' />
+          <map key='[ProductID]' value='[customer_reviews_with_sentiment.csv].[ProductID]' />
+          <map key='[ProductName]' value='[products.csv].[ProductName]' />
+          <map key='[Rating]' value='[customer_reviews_with_sentiment.csv].[Rating]' />
+          <map key='[Rating_Label]' value='[customer_reviews_with_sentiment.csv].[Rating_Label]' />
+          <map key='[ReviewDate]' value='[customer_reviews_with_sentiment.csv].[ReviewDate]' />
+          <map key='[ReviewText]' value='[customer_reviews_with_sentiment.csv].[ReviewText]' />
+          <map key='[Sentiment_Pred]' value='[customer_reviews_with_sentiment.csv].[Sentiment_Pred]' />
+          <map key='[Sentiment_Score]' value='[customer_reviews_with_sentiment.csv].[Sentiment_Score]' />
+          <map key='[Stage]' value='[customer_journey_cleaned.csv].[Stage]' />
+          <map key='[ViewsClicksCombined]' value='[engagement_data.csv].[ViewsClicksCombined]' />
+          <map key='[Views]' value='[engagement_data.csv].[Views]' />
+          <map key='[VisitDate]' value='[customer_journey_cleaned.csv].[VisitDate]' />
+          <map key='[clean_text]' value='[customer_reviews_with_sentiment.csv].[clean_text]' />
+        </cols>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[customers.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[customer_journey_cleaned.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[customer_reviews_with_sentiment.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[geography.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[products.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>CustomerID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[CustomerID]</local-name>
+            <parent-name>[customers.csv]</parent-name>
+            <remote-alias>CustomerID</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>CustomerName</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[CustomerName]</local-name>
+            <parent-name>[customers.csv]</parent-name>
+            <remote-alias>CustomerName</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Email</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Email]</local-name>
+            <parent-name>[customers.csv]</parent-name>
+            <remote-alias>Email</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Gender</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Gender]</local-name>
+            <parent-name>[customers.csv]</parent-name>
+            <remote-alias>Gender</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Age</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Age]</local-name>
+            <parent-name>[customers.csv]</parent-name>
+            <remote-alias>Age</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>GeographyID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[GeographyID]</local-name>
+            <parent-name>[customers.csv]</parent-name>
+            <remote-alias>GeographyID</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>JourneyID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[JourneyID]</local-name>
+            <parent-name>[customer_journey_cleaned.csv]</parent-name>
+            <remote-alias>JourneyID</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>CustomerID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[CustomerID (customer_journey_cleaned.csv)]</local-name>
+            <parent-name>[customer_journey_cleaned.csv]</parent-name>
+            <remote-alias>CustomerID</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ProductID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[ProductID (customer_journey_cleaned.csv)]</local-name>
+            <parent-name>[customer_journey_cleaned.csv]</parent-name>
+            <remote-alias>ProductID</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>VisitDate</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[VisitDate]</local-name>
+            <parent-name>[customer_journey_cleaned.csv]</parent-name>
+            <remote-alias>VisitDate</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Stage</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Stage]</local-name>
+            <parent-name>[customer_journey_cleaned.csv]</parent-name>
+            <remote-alias>Stage</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Action</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Action]</local-name>
+            <parent-name>[customer_journey_cleaned.csv]</parent-name>
+            <remote-alias>Action</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Duration</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Duration]</local-name>
+            <parent-name>[customer_journey_cleaned.csv]</parent-name>
+            <remote-alias>Duration</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>CustomerID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[CustomerID (customer_reviews_with_sentiment.csv)]</local-name>
+            <parent-name>[customer_reviews_with_sentiment.csv]</parent-name>
+            <remote-alias>CustomerID</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ProductID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[ProductID]</local-name>
+            <parent-name>[customer_reviews_with_sentiment.csv]</parent-name>
+            <remote-alias>ProductID</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ReviewDate</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[ReviewDate]</local-name>
+            <parent-name>[customer_reviews_with_sentiment.csv]</parent-name>
+            <remote-alias>ReviewDate</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Rating</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Rating]</local-name>
+            <parent-name>[customer_reviews_with_sentiment.csv]</parent-name>
+            <remote-alias>Rating</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ReviewText</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[ReviewText]</local-name>
+            <parent-name>[customer_reviews_with_sentiment.csv]</parent-name>
+            <remote-alias>ReviewText</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>clean_text</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[clean_text]</local-name>
+            <parent-name>[customer_reviews_with_sentiment.csv]</parent-name>
+            <remote-alias>clean_text</remote-alias>
+            <ordinal>18</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Rating_Label</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Rating_Label]</local-name>
+            <parent-name>[customer_reviews_with_sentiment.csv]</parent-name>
+            <remote-alias>Rating_Label</remote-alias>
+            <ordinal>19</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Sentiment_Pred</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Sentiment_Pred]</local-name>
+            <parent-name>[customer_reviews_with_sentiment.csv]</parent-name>
+            <remote-alias>Sentiment_Pred</remote-alias>
+            <ordinal>20</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Sentiment_Score</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Sentiment_Score]</local-name>
+            <parent-name>[customer_reviews_with_sentiment.csv]</parent-name>
+            <remote-alias>Sentiment_Score</remote-alias>
+            <ordinal>21</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>GeographyID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[GeographyID (geography.csv)]</local-name>
+            <parent-name>[geography.csv]</parent-name>
+            <remote-alias>GeographyID</remote-alias>
+            <ordinal>22</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Country</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Country]</local-name>
+            <parent-name>[geography.csv]</parent-name>
+            <remote-alias>Country</remote-alias>
+            <ordinal>23</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>City</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[City]</local-name>
+            <parent-name>[geography.csv]</parent-name>
+            <remote-alias>City</remote-alias>
+            <ordinal>24</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]</object-id>
+          </metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>ProductID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[ProductID (products.csv)]</local-name>
+            <parent-name>[products.csv]</parent-name>
+            <remote-alias>ProductID</remote-alias>
+            <ordinal>25</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>ProductName</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[ProductName]</local-name>
+            <parent-name>[products.csv]</parent-name>
+            <remote-alias>ProductName</remote-alias>
+            <ordinal>26</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>Category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Category]</local-name>
+            <parent-name>[products.csv]</parent-name>
+            <remote-alias>Category</remote-alias>
+            <ordinal>27</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>Price</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Price]</local-name>
+            <parent-name>[products.csv]</parent-name>
+            <remote-alias>Price</remote-alias>
+            <ordinal>28</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>PriceCategory</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[PriceCategory]</local-name>
+            <parent-name>[products.csv]</parent-name>
+            <remote-alias>PriceCategory</remote-alias>
+            <ordinal>29</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>EngagementID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[EngagementID]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>EngagementID</remote-alias>
+            <ordinal>30</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>ContentID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[ContentID]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>ContentID</remote-alias>
+            <ordinal>31</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>ContentType</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[ContentType]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>ContentType</remote-alias>
+            <ordinal>32</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>Likes</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Likes]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>Likes</remote-alias>
+            <ordinal>33</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>EngagementDate</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[EngagementDate]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>EngagementDate</remote-alias>
+            <ordinal>34</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>CampaignID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[CampaignID]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>CampaignID</remote-alias>
+            <ordinal>35</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>ProductID</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[ProductID (engagement_data.csv)]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>ProductID</remote-alias>
+            <ordinal>36</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>ViewsClicksCombined</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[ViewsClicksCombined]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>ViewsClicksCombined</remote-alias>
+            <ordinal>37</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>ContentType_Clean</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[ContentType_Clean]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>ContentType_Clean</remote-alias>
+            <ordinal>38</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>Views</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Views]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>Views</remote-alias>
+            <ordinal>39</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>Clicks</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Clicks]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>Clicks</remote-alias>
+            <ordinal>40</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+            <remote-name>EngagementDate_Formatted</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[EngagementDate_Formatted]</local-name>
+            <parent-name>[engagement_data.csv]</parent-name>
+            <remote-alias>EngagementDate_Formatted</remote-alias>
+            <ordinal>41</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+          </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Campaign ID' datatype='integer' name='[CampaignID]' role='dimension' type='ordinal' />
+      <column datatype='string' name='[City]' role='dimension' semantic-role='[City].[Name]' type='nominal' />
+      <column caption='Content ID' datatype='integer' name='[ContentID]' role='dimension' type='ordinal' />
+      <column caption='Content Type' datatype='string' name='[ContentType]' role='dimension' type='nominal' />
+      <column caption='ContentType Clean' datatype='string' name='[ContentType_Clean]' role='dimension' type='nominal' />
+      <column datatype='string' name='[Country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
+      <column caption='CustomerID (customer journey cleaned.csv)' datatype='integer' name='[CustomerID (customer_journey_cleaned.csv)]' role='dimension' type='ordinal' />
+      <column caption='CustomerID (customer reviews with sentiment.csv)' datatype='integer' name='[CustomerID (customer_reviews_with_sentiment.csv)]' role='dimension' type='ordinal' />
+      <column caption='Customer ID' datatype='integer' name='[CustomerID]' role='dimension' type='ordinal' />
+      <column caption='Customer Name' datatype='string' name='[CustomerName]' role='dimension' type='nominal' />
+      <column caption='Engagement Date' datatype='date' name='[EngagementDate]' role='dimension' type='ordinal' />
+      <column caption='EngagementDate Formatted' datatype='date' name='[EngagementDate_Formatted]' role='dimension' type='ordinal' />
+      <column caption='Engagement ID' datatype='integer' name='[EngagementID]' role='dimension' type='ordinal' />
+      <column datatype='integer' name='[GeographyID (geography.csv)]' role='dimension' type='ordinal' />
+      <column caption='Geography ID' datatype='integer' name='[GeographyID]' role='dimension' type='ordinal' />
+      <column caption='Journey ID' datatype='integer' name='[JourneyID]' role='dimension' type='ordinal' />
+      <column caption='Price Category' datatype='string' name='[PriceCategory]' role='dimension' type='nominal' />
+      <column caption='ProductID (customer journey cleaned.csv)' datatype='integer' name='[ProductID (customer_journey_cleaned.csv)]' role='dimension' type='ordinal' />
+      <column caption='ProductID (engagement data.csv)' datatype='integer' name='[ProductID (engagement_data.csv)]' role='dimension' type='ordinal' />
+      <column datatype='integer' name='[ProductID (products.csv)]' role='dimension' type='ordinal' />
+      <column caption='Product ID' datatype='integer' name='[ProductID]' role='dimension' type='ordinal' />
+      <column caption='Product Name' datatype='string' name='[ProductName]' role='dimension' type='nominal' />
+      <column caption='Rating Label' datatype='string' name='[Rating_Label]' role='dimension' type='nominal' />
+      <column caption='Review Date' datatype='date' name='[ReviewDate]' role='dimension' type='ordinal' />
+      <column caption='Review Text' datatype='string' name='[ReviewText]' role='dimension' type='nominal' />
+      <column caption='Sentiment Pred' datatype='string' name='[Sentiment_Pred]' role='dimension' type='nominal' />
+      <column caption='Sentiment Score' datatype='real' name='[Sentiment_Score]' role='measure' type='quantitative' />
+      <column caption='Views Clicks Combined' datatype='string' name='[ViewsClicksCombined]' role='dimension' type='nominal' />
+      <column caption='Visit Date' datatype='date' name='[VisitDate]' role='dimension' type='ordinal' />
+      <column caption='customer_journey_cleaned.csv' datatype='table' name='[__tableau_internal_object_id__].[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]' role='measure' type='quantitative' />
+      <column caption='customer_reviews_with_sentiment.csv' datatype='table' name='[__tableau_internal_object_id__].[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]' role='measure' type='quantitative' />
+      <column caption='customers.csv' datatype='table' name='[__tableau_internal_object_id__].[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]' role='measure' type='quantitative' />
+      <column caption='engagement_data.csv' datatype='table' name='[__tableau_internal_object_id__].[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]' role='measure' type='quantitative' />
+      <column caption='geography.csv' datatype='table' name='[__tableau_internal_object_id__].[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]' role='measure' type='quantitative' />
+      <column caption='products.csv' datatype='table' name='[__tableau_internal_object_id__].[products.csv_07DEBFE57EFC40CE9988030F2D055636]' role='measure' type='quantitative' />
+      <column caption='Clean Text' datatype='string' name='[clean_text]' role='dimension' type='nominal' />
+      <drill-paths>
+        <drill-path name='Country, City'>
+          <field>[Country]</field>
+          <field>[City]</field>
+        </drill-path>
+      </drill-paths>
+      <extract _.fcp.VConnDownstreamExtractsWithWarnings.true...user-specific='false' count='-1' enabled='true' object-id='' units='records'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='C:/Users/farhan/AppData/Local/Temp/TableauTemp/#TableauTemp_00xnxzp127bydd1cjtpji1w5e9be.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='09/14/2025 03:08:00 PM' username='tableau_internal_user'>
+          <relation type='collection'>
+            <relation name='customers.csv_B7096E5940C347D3BDDF4A18FC75EA12' table='[Extract].[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]' type='table' />
+            <relation name='customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA' table='[Extract].[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]' type='table' />
+            <relation name='customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917' table='[Extract].[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]' type='table' />
+            <relation name='geography.csv_752313D745DF4DBF8C4F8FAEBF58780C' table='[Extract].[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]' type='table' />
+            <_.fcp.ObjectModelSharedDimensions.true...relation name='products.csv_07DEBFE57EFC40CE9988030F2D055636' table='[Extract].[products.csv_07DEBFE57EFC40CE9988030F2D055636]' type='table' />
+            <_.fcp.ObjectModelSharedDimensions.true...relation name='engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D' table='[Extract].[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]' type='table' />
+          </relation>
+          <cols>
+            <map key='[Action]' value='[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA].[Action]' />
+            <map key='[Age]' value='[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12].[Age]' />
+            <map key='[CampaignID]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[CampaignID]' />
+            <map key='[Category]' value='[products.csv_07DEBFE57EFC40CE9988030F2D055636].[Category]' />
+            <map key='[City]' value='[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C].[City]' />
+            <map key='[Clicks]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[Clicks]' />
+            <map key='[ContentID]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[ContentID]' />
+            <map key='[ContentType]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[ContentType]' />
+            <map key='[ContentType_Clean]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[ContentType_Clean]' />
+            <map key='[Country]' value='[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C].[Country]' />
+            <map key='[CustomerID (customer_journey_cleaned.csv)]' value='[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA].[CustomerID]' />
+            <map key='[CustomerID (customer_reviews_with_sentiment.csv)]' value='[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917].[CustomerID]' />
+            <map key='[CustomerID]' value='[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12].[CustomerID]' />
+            <map key='[CustomerName]' value='[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12].[CustomerName]' />
+            <map key='[Duration]' value='[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA].[Duration]' />
+            <map key='[Email]' value='[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12].[Email]' />
+            <map key='[EngagementDate]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[EngagementDate]' />
+            <map key='[EngagementDate_Formatted]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[EngagementDate_Formatted]' />
+            <map key='[EngagementID]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[EngagementID]' />
+            <map key='[Gender]' value='[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12].[Gender]' />
+            <map key='[GeographyID (geography.csv)]' value='[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C].[GeographyID]' />
+            <map key='[GeographyID]' value='[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12].[GeographyID]' />
+            <map key='[JourneyID]' value='[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA].[JourneyID]' />
+            <map key='[Likes]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[Likes]' />
+            <map key='[PriceCategory]' value='[products.csv_07DEBFE57EFC40CE9988030F2D055636].[PriceCategory]' />
+            <map key='[Price]' value='[products.csv_07DEBFE57EFC40CE9988030F2D055636].[Price]' />
+            <map key='[ProductID (customer_journey_cleaned.csv)]' value='[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA].[ProductID]' />
+            <map key='[ProductID (engagement_data.csv)]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[ProductID]' />
+            <map key='[ProductID (products.csv)]' value='[products.csv_07DEBFE57EFC40CE9988030F2D055636].[ProductID]' />
+            <map key='[ProductID]' value='[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917].[ProductID]' />
+            <map key='[ProductName]' value='[products.csv_07DEBFE57EFC40CE9988030F2D055636].[ProductName]' />
+            <map key='[Rating]' value='[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917].[Rating]' />
+            <map key='[Rating_Label]' value='[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917].[Rating_Label]' />
+            <map key='[ReviewDate]' value='[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917].[ReviewDate]' />
+            <map key='[ReviewText]' value='[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917].[ReviewText]' />
+            <map key='[Sentiment_Pred]' value='[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917].[Sentiment_Pred]' />
+            <map key='[Sentiment_Score]' value='[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917].[Sentiment_Score]' />
+            <map key='[Stage]' value='[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA].[Stage]' />
+            <map key='[ViewsClicksCombined]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[ViewsClicksCombined]' />
+            <map key='[Views]' value='[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D].[Views]' />
+            <map key='[VisitDate]' value='[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA].[VisitDate]' />
+            <map key='[clean_text]' value='[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917].[clean_text]' />
+          </cols>
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>CustomerID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[CustomerID]</local-name>
+              <parent-name>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</parent-name>
+              <remote-alias>CustomerID</remote-alias>
+              <ordinal>0</ordinal>
+              <family>customers.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>100</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>CustomerName</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[CustomerName]</local-name>
+              <parent-name>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</parent-name>
+              <remote-alias>CustomerName</remote-alias>
+              <ordinal>1</ordinal>
+              <family>customers.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>100</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Email</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Email]</local-name>
+              <parent-name>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</parent-name>
+              <remote-alias>Email</remote-alias>
+              <ordinal>2</ordinal>
+              <family>customers.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>100</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Gender</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Gender]</local-name>
+              <parent-name>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</parent-name>
+              <remote-alias>Gender</remote-alias>
+              <ordinal>3</ordinal>
+              <family>customers.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Age</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[Age]</local-name>
+              <parent-name>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</parent-name>
+              <remote-alias>Age</remote-alias>
+              <ordinal>4</ordinal>
+              <family>customers.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>45</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>GeographyID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[GeographyID]</local-name>
+              <parent-name>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</parent-name>
+              <remote-alias>GeographyID</remote-alias>
+              <ordinal>5</ordinal>
+              <family>customers.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>10</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>JourneyID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[JourneyID]</local-name>
+              <parent-name>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</parent-name>
+              <remote-alias>JourneyID</remote-alias>
+              <ordinal>6</ordinal>
+              <family>customer_journey_cleaned.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>3932</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>CustomerID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[CustomerID (customer_journey_cleaned.csv)]</local-name>
+              <parent-name>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</parent-name>
+              <remote-alias>CustomerID</remote-alias>
+              <ordinal>7</ordinal>
+              <family>customer_journey_cleaned.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>100</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>ProductID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[ProductID (customer_journey_cleaned.csv)]</local-name>
+              <parent-name>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</parent-name>
+              <remote-alias>ProductID</remote-alias>
+              <ordinal>8</ordinal>
+              <family>customer_journey_cleaned.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>20</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>VisitDate</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[VisitDate]</local-name>
+              <parent-name>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</parent-name>
+              <remote-alias>VisitDate</remote-alias>
+              <ordinal>9</ordinal>
+              <family>customer_journey_cleaned.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>1043</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Stage</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Stage]</local-name>
+              <parent-name>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</parent-name>
+              <remote-alias>Stage</remote-alias>
+              <ordinal>10</ordinal>
+              <family>customer_journey_cleaned.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>3</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Action</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Action]</local-name>
+              <parent-name>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</parent-name>
+              <remote-alias>Action</remote-alias>
+              <ordinal>11</ordinal>
+              <family>customer_journey_cleaned.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Duration</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[Duration]</local-name>
+              <parent-name>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</parent-name>
+              <remote-alias>Duration</remote-alias>
+              <ordinal>12</ordinal>
+              <family>customer_journey_cleaned.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>477</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>CustomerID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[CustomerID (customer_reviews_with_sentiment.csv)]</local-name>
+              <parent-name>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</parent-name>
+              <remote-alias>CustomerID</remote-alias>
+              <ordinal>13</ordinal>
+              <family>customer_reviews_with_sentiment.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>100</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>ProductID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[ProductID]</local-name>
+              <parent-name>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</parent-name>
+              <remote-alias>ProductID</remote-alias>
+              <ordinal>14</ordinal>
+              <family>customer_reviews_with_sentiment.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>20</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>ReviewDate</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[ReviewDate]</local-name>
+              <parent-name>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</parent-name>
+              <remote-alias>ReviewDate</remote-alias>
+              <ordinal>15</ordinal>
+              <family>customer_reviews_with_sentiment.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>736</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Rating</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[Rating]</local-name>
+              <parent-name>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</parent-name>
+              <remote-alias>Rating</remote-alias>
+              <ordinal>16</ordinal>
+              <family>customer_reviews_with_sentiment.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>5</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>ReviewText</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[ReviewText]</local-name>
+              <parent-name>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</parent-name>
+              <remote-alias>ReviewText</remote-alias>
+              <ordinal>17</ordinal>
+              <family>customer_reviews_with_sentiment.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>101</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>clean_text</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[clean_text]</local-name>
+              <parent-name>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</parent-name>
+              <remote-alias>clean_text</remote-alias>
+              <ordinal>18</ordinal>
+              <family>customer_reviews_with_sentiment.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>22</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Rating_Label</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Rating_Label]</local-name>
+              <parent-name>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</parent-name>
+              <remote-alias>Rating_Label</remote-alias>
+              <ordinal>19</ordinal>
+              <family>customer_reviews_with_sentiment.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>3</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Sentiment_Pred</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Sentiment_Pred]</local-name>
+              <parent-name>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</parent-name>
+              <remote-alias>Sentiment_Pred</remote-alias>
+              <ordinal>20</ordinal>
+              <family>customer_reviews_with_sentiment.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>3</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Sentiment_Score</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[Sentiment_Score]</local-name>
+              <parent-name>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</parent-name>
+              <remote-alias>Sentiment_Score</remote-alias>
+              <ordinal>21</ordinal>
+              <family>customer_reviews_with_sentiment.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>22</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>GeographyID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[GeographyID (geography.csv)]</local-name>
+              <parent-name>[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]</parent-name>
+              <remote-alias>GeographyID</remote-alias>
+              <ordinal>22</ordinal>
+              <family>geography.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>10</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Country</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Country]</local-name>
+              <parent-name>[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]</parent-name>
+              <remote-alias>Country</remote-alias>
+              <ordinal>23</ordinal>
+              <family>geography.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>10</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>City</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[City]</local-name>
+              <parent-name>[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]</parent-name>
+              <remote-alias>City</remote-alias>
+              <ordinal>24</ordinal>
+              <family>geography.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>10</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]</object-id>
+            </metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>ProductID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[ProductID (products.csv)]</local-name>
+              <parent-name>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</parent-name>
+              <remote-alias>ProductID</remote-alias>
+              <ordinal>25</ordinal>
+              <family>products.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>20</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>ProductName</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[ProductName]</local-name>
+              <parent-name>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</parent-name>
+              <remote-alias>ProductName</remote-alias>
+              <ordinal>26</ordinal>
+              <family>products.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>20</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>Category</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Category]</local-name>
+              <parent-name>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</parent-name>
+              <remote-alias>Category</remote-alias>
+              <ordinal>27</ordinal>
+              <family>products.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>1</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>Price</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[Price]</local-name>
+              <parent-name>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</parent-name>
+              <remote-alias>Price</remote-alias>
+              <ordinal>28</ordinal>
+              <family>products.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>20</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>PriceCategory</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[PriceCategory]</local-name>
+              <parent-name>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</parent-name>
+              <remote-alias>PriceCategory</remote-alias>
+              <ordinal>29</ordinal>
+              <family>products.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>3</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[products.csv_07DEBFE57EFC40CE9988030F2D055636]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>EngagementID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[EngagementID]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>EngagementID</remote-alias>
+              <ordinal>30</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>4623</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>ContentID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[ContentID]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>ContentID</remote-alias>
+              <ordinal>31</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>50</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>ContentType</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[ContentType]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>ContentType</remote-alias>
+              <ordinal>32</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>12</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>Likes</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[Likes]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>Likes</remote-alias>
+              <ordinal>33</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>490</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>EngagementDate</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[EngagementDate]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>EngagementDate</remote-alias>
+              <ordinal>34</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>1101</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>CampaignID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[CampaignID]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>CampaignID</remote-alias>
+              <ordinal>35</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>20</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>ProductID</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[ProductID (engagement_data.csv)]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>ProductID</remote-alias>
+              <ordinal>36</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>20</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>ViewsClicksCombined</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[ViewsClicksCombined]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>ViewsClicksCombined</remote-alias>
+              <ordinal>37</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>4623</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>ContentType_Clean</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[ContentType_Clean]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>ContentType_Clean</remote-alias>
+              <ordinal>38</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>Views</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[Views]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>Views</remote-alias>
+              <ordinal>39</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>2117</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>Clicks</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[Clicks]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>Clicks</remote-alias>
+              <ordinal>40</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>1070</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+            <_.fcp.ObjectModelSharedDimensions.true...metadata-record class='column'>
+              <remote-name>EngagementDate_Formatted</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[EngagementDate_Formatted]</local-name>
+              <parent-name>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</parent-name>
+              <remote-alias>EngagementDate_Formatted</remote-alias>
+              <ordinal>41</ordinal>
+              <family>engagement_data.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>1101</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]</object-id>
+            </_.fcp.ObjectModelSharedDimensions.true...metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='customer_journey_cleaned.csv' id='customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA'>
+            <properties context=''>
+              <relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='customer_journey_cleaned.csv' table='[customer_journey_cleaned#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='JourneyID' ordinal='0' />
+                  <column datatype='integer' name='CustomerID' ordinal='1' />
+                  <column datatype='integer' name='ProductID' ordinal='2' />
+                  <column datatype='date' name='VisitDate' ordinal='3' />
+                  <column datatype='string' name='Stage' ordinal='4' />
+                  <column datatype='string' name='Action' ordinal='5' />
+                  <column datatype='real' name='Duration' ordinal='6' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA' table='[Extract].[customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA]' type='table' />
+            </properties>
+          </object>
+          <object caption='customer_reviews_with_sentiment.csv' id='customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917'>
+            <properties context=''>
+              <relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='customer_reviews_with_sentiment.csv' table='[customer_reviews_with_sentiment#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='CustomerID' ordinal='0' />
+                  <column datatype='integer' name='ProductID' ordinal='1' />
+                  <column datatype='date' name='ReviewDate' ordinal='2' />
+                  <column datatype='integer' name='Rating' ordinal='3' />
+                  <column datatype='string' name='ReviewText' ordinal='4' />
+                  <column datatype='string' name='clean_text' ordinal='5' />
+                  <column datatype='string' name='Rating_Label' ordinal='6' />
+                  <column datatype='string' name='Sentiment_Pred' ordinal='7' />
+                  <column datatype='real' name='Sentiment_Score' ordinal='8' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917' table='[Extract].[customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917]' type='table' />
+            </properties>
+          </object>
+          <object caption='customers.csv' id='customers.csv_B7096E5940C347D3BDDF4A18FC75EA12'>
+            <properties context=''>
+              <relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='customers.csv' table='[customers#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='CustomerID' ordinal='0' />
+                  <column datatype='string' name='CustomerName' ordinal='1' />
+                  <column datatype='string' name='Email' ordinal='2' />
+                  <column datatype='string' name='Gender' ordinal='3' />
+                  <column datatype='integer' name='Age' ordinal='4' />
+                  <column datatype='integer' name='GeographyID' ordinal='5' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='customers.csv_B7096E5940C347D3BDDF4A18FC75EA12' table='[Extract].[customers.csv_B7096E5940C347D3BDDF4A18FC75EA12]' type='table' />
+            </properties>
+          </object>
+          <_.fcp.ObjectModelSharedDimensions.true...object caption='engagement_data.csv' id='engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D'>
+            <properties context=''>
+              <relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='engagement_data.csv' table='[engagement_data#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='EngagementID' ordinal='0' />
+                  <column datatype='integer' name='ContentID' ordinal='1' />
+                  <column datatype='string' name='ContentType' ordinal='2' />
+                  <column datatype='integer' name='Likes' ordinal='3' />
+                  <column datatype='date' name='EngagementDate' ordinal='4' />
+                  <column datatype='integer' name='CampaignID' ordinal='5' />
+                  <column datatype='integer' name='ProductID' ordinal='6' />
+                  <column datatype='string' name='ViewsClicksCombined' ordinal='7' />
+                  <column datatype='string' name='ContentType_Clean' ordinal='8' />
+                  <column datatype='integer' name='Views' ordinal='9' />
+                  <column datatype='integer' name='Clicks' ordinal='10' />
+                  <column datatype='date' name='EngagementDate_Formatted' ordinal='11' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D' table='[Extract].[engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D]' type='table' />
+            </properties>
+          </_.fcp.ObjectModelSharedDimensions.true...object>
+          <object caption='geography.csv' id='geography.csv_752313D745DF4DBF8C4F8FAEBF58780C'>
+            <properties context=''>
+              <relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='geography.csv' table='[geography#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='GeographyID' ordinal='0' />
+                  <column datatype='string' name='Country' ordinal='1' />
+                  <column datatype='string' name='City' ordinal='2' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='geography.csv_752313D745DF4DBF8C4F8FAEBF58780C' table='[Extract].[geography.csv_752313D745DF4DBF8C4F8FAEBF58780C]' type='table' />
+            </properties>
+          </object>
+          <_.fcp.ObjectModelSharedDimensions.true...object caption='products.csv' id='products.csv_07DEBFE57EFC40CE9988030F2D055636'>
+            <properties context=''>
+              <relation connection='textscan.1fzifme0ekuipa1g3mky317gmj7a' name='products.csv' table='[products#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='ProductID' ordinal='0' />
+                  <column datatype='string' name='ProductName' ordinal='1' />
+                  <column datatype='string' name='Category' ordinal='2' />
+                  <column datatype='real' name='Price' ordinal='3' />
+                  <column datatype='string' name='PriceCategory' ordinal='4' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='products.csv_07DEBFE57EFC40CE9988030F2D055636' table='[Extract].[products.csv_07DEBFE57EFC40CE9988030F2D055636]' type='table' />
+            </properties>
+          </_.fcp.ObjectModelSharedDimensions.true...object>
+        </objects>
+        <relationships>
+          <relationship>
+            <expression op='='>
+              <expression op='[CustomerID]' />
+              <expression op='[CustomerID (customer_journey_cleaned.csv)]' />
+            </expression>
+            <first-end-point object-id='customers.csv_B7096E5940C347D3BDDF4A18FC75EA12' />
+            <second-end-point object-id='customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA' />
+          </relationship>
+          <_.fcp.ObjectModelSharedDimensions.true...relationship>
+            <expression op='='>
+              <expression op='[ProductID (products.csv)]' />
+              <expression op='[ProductID (customer_journey_cleaned.csv)]' />
+            </expression>
+            <first-end-point object-id='products.csv_07DEBFE57EFC40CE9988030F2D055636' />
+            <second-end-point object-id='customer_journey_cleaned.csv_E04A8ED3CCD74869B3A87BFF35B850AA' />
+          </_.fcp.ObjectModelSharedDimensions.true...relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[CustomerID]' />
+              <expression op='[CustomerID (customer_reviews_with_sentiment.csv)]' />
+            </expression>
+            <first-end-point object-id='customers.csv_B7096E5940C347D3BDDF4A18FC75EA12' />
+            <second-end-point object-id='customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917' />
+          </relationship>
+          <_.fcp.ObjectModelSharedDimensions.true...relationship>
+            <expression op='='>
+              <expression op='[ProductID (products.csv)]' />
+              <expression op='[ProductID]' />
+            </expression>
+            <first-end-point object-id='products.csv_07DEBFE57EFC40CE9988030F2D055636' />
+            <second-end-point object-id='customer_reviews_with_sentiment.csv_1FAFED3C4F594FE68AA3F865BD54F917' />
+          </_.fcp.ObjectModelSharedDimensions.true...relationship>
+          <_.fcp.ObjectModelSharedDimensions.true...relationship>
+            <expression op='='>
+              <expression op='[ProductID (products.csv)]' />
+              <expression op='[ProductID (engagement_data.csv)]' />
+            </expression>
+            <first-end-point object-id='products.csv_07DEBFE57EFC40CE9988030F2D055636' />
+            <second-end-point object-id='engagement_data.csv_0CBE4C93141947BEB613F737B6DFE07D' />
+          </_.fcp.ObjectModelSharedDimensions.true...relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[GeographyID]' />
+              <expression op='[GeographyID (geography.csv)]' />
+            </expression>
+            <first-end-point object-id='customers.csv_B7096E5940C347D3BDDF4A18FC75EA12' />
+            <second-end-point object-id='geography.csv_752313D745DF4DBF8C4F8FAEBF58780C' />
+          </relationship>
+        </relationships>
+      </object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Sheet 1'>
+      <table>
+        <view>
+          <datasources />
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{489DF725-BF60-44D6-BA8B-C359FA4A8D4D}' />
+    </worksheet>
+  </worksheets>
+  <windows source-height='30'>
+    <window class='worksheet' maximized='true' name='Sheet 1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{0A6F5F19-01FB-4BAF-B91B-80DA15C166AD}' />
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='192' name='Sheet 1' width='192'>
+      iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAAA7DAAAOwwHHb6hk
+      AAACFUlEQVR4nO3TMQEAIAzAMMC/5yFjRxMFfXpnZg5Eve0A2GQA0gxAmgFIMwBpBiDNAKQZ
+      gDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFI
+      MwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQD
+      kGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBp
+      BiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA
+      0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDN
+      AKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxA
+      mgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZ
+      gDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFI
+      MwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKQZgDQDkGYA0gxAmgFIMwBpBiDNAKR9Y+0F
+      fBUOM1sAAAAASUVORK5CYII=
+    </thumbnail>
+  </thumbnails>
+</workbook>
